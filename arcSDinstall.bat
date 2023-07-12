@@ -1,26 +1,10 @@
 @echo off
 setlocal enableextensions
+path=C:\Program Files\Docker\Docker\resources\bin;%path%
 
 winget install docker.dockerdesktop
 
-If %ERRORLEVEL% EQU 0 (
-    cmd /k "%0"
-)
-::if the package is successfully installed, open a new cmd to run this script again
-
-
-
-If %ERRORLEVEL% EQU -1978335189 (
-    ::If the package is already installed and has no update
-    goto :continue
-) ELSE (
-    ::other errors
-    goto :EOF
-)
-
-
-:continue
-echo Please OPEN DOCKER DESKTOP then config the proxies (if needed).
+echo Please OPEN DOCKER DESKTOP, then config the proxies (if needed).
 echo Where do you wanna install sd-webui? Your models and pictures will be there. (default=%UserProfile%\docker-mount\sd-webui)
 set /p loc=
 If "%loc%" == "" (
@@ -36,4 +20,5 @@ docker run -it ^
 --name sd-server ^
 nuullll/ipex-arc-sd:latest
 :EOF
+endlocal
 pause
